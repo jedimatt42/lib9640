@@ -1,0 +1,15 @@
+
+SECTIONS
+{
+  .text 0x0400 : {*(.text)}
+
+  .ctors ALIGN(2) : { __CTOR_START = .; *(.ctors);}
+  __CTOR_END = .;
+  
+  __VAL_START = .;
+  .data ALIGN(2) : { __DATA_START = .; *(.data);}
+  __DATA_END = .;
+
+  .bss  ALIGN(2) : { __BSS_START = .; *(.bss);}
+  __BSS_END = .;
+}  
