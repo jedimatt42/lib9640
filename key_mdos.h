@@ -15,12 +15,20 @@ extern int XOP_KEY;
 #define KEY_MODE_RAW 8
 
 /*
- * Scan the keyboard. 
+ * Scan the keyboard. Non-blocking. status EQ bit indicates
+ * if a new key was pressed. If no key has been pressed >FF is returned.
+ *
  * mode - the desired keyboard mode
  * status - location to store scan status
  * returns - last read keycode
  */
 unsigned char key_scan(int mode, int* status);
+
+/*
+ * Block and wait for a standard mode key press.
+ * returns - new keycode.
+ */
+unsigned char key_getkey();
 
 #endif
 

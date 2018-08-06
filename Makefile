@@ -7,11 +7,9 @@ ELF2EA5=elf2ea5
 
 FNAME=lib9640
 
-OBJECT_LIST= \
-  key_xop.o \
-  key_scan.o \
-  video_xop.o \
-  video_writetty.o
+SRCS=$(wildcard *.c)
+
+OBJECT_LIST=$(SRCS:.c=.o)
 
 all: $(FNAME).a
 
