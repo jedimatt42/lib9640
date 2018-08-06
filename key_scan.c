@@ -1,18 +1,18 @@
 #include "key_mdos.h"
 
 
-int key_scan(int mode, unsigned char* code, unsigned char* joyx, unsigned char* joyy) {
-  int res = 0;
-  __asm__("mov %3, r0\n\t"
+unsigned char key_scan(int mode, int* status) {
+  int st;
+  unsigned char key;
+  __asm__("mov %2, r0\n\t"
 	  "li r1, >FF00\n\t"
-	  "xop %4, 0\n\t"
+	  "xop %3, 0\n\t"
+	  "stst %1\n\t"
 	  "movb r1, %0\n\t"
-	  "movb r2, %1\n\t"
-	  "swpb r2\n\t"
-	  "movb r2, %2\n\t"
-	  : "=m" (code), "=m" (joyx), "=m" (joyy)
+	  : "=m" (key), "=r" (st)
 	  : "r" (mode), "m" (XOP_KEY)
 	  : "r0", "r1", "r2");
-  return res;
+  *status = st;
+  return key;
 }
 

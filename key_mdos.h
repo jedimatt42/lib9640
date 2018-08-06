@@ -16,13 +16,11 @@ extern int XOP_KEY;
 
 /*
  * Scan the keyboard. 
- * returns true if new key
- * code - address to store resulting key press
- * joyx - address to store x value
- * joyy - address to store y value
+ * mode - the desired keyboard mode
+ * status - location to store scan status
+ * returns - last read keycode
  */
-int key_scan(int mode, unsigned char* code, unsigned char* joyx, unsigned char* joyy);
-
+unsigned char key_scan(int mode, int* status);
 
 #endif
 

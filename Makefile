@@ -31,5 +31,5 @@ $(FNAME).a: $(OBJECT_LIST)
 	$(GAS) $< -o $@
 
 %.o: %.c
-	$(CC) -c $< -std=c99 -O0 --no-inline --save-temp -o $@
+	$(CC) -c $< -std=c99 -O2 --no-inline --save-temp -o $@
 

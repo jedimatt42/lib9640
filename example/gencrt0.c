@@ -4,6 +4,26 @@
 * the conditions needed for the C environment */
 extern int main(void);
 
+// _start must be first code in linked module
+
+#ifdef __cplusplus
+extern "C"
+#endif
+void _start(void)
+{
+  /* Set initial workspace
+  *
+  * The registers will be located at the start of scratchpad memory */
+  __asm__("lwpi >F000" );
+
+  /* Create the stack before declaring any variables */
+  __asm__("li sp, mystack+1024");
+
+  /* Call the second part directly to prevent a stack for this function */
+  __asm__("b @_start2");
+}
+
+
 #ifdef __cplusplus
 extern "C"
 #endif
@@ -60,22 +80,4 @@ void _start2(void)
 // Todo: acquire page from MDOS instead, this will break if program 
 // is within 1k of 8k boundary.
 char mystack[1024];
-
-#ifdef __cplusplus
-extern "C"
-#endif
-void _start(void)
-{
-  /* Set initial workspace
-  *
-  * The registers will be located at the start of scratchpad memory */
-  __asm__("lwpi >F000" );
-
-  /* Create the stack before declaring any variables */
-  __asm__("li sp, mystack+1024");
-
-  /* Call the second part directly to prevent a stack for this function */
-  __asm__("b @_start2");
-}
-
 
